@@ -46,9 +46,9 @@ export class NavbarComponent implements OnInit{
     let seconds = date.getSeconds();
     this.datePipe = hours+":"+minutes+":"+seconds
     let dateExp = hourExp+":"+minuteExp+":"+seconds
-    console.log(this.datePipe);
+    //console.log(this.datePipe);
     let tab= sessionStorage.getItem('tokenExp')?.split(":")
-    console.log(tab );
+    //console.log(tab );
     
     if ( parseInt(tab![0]) == hours && (parseInt(tab![1]) < minutes  )) {
       sessionStorage.removeItem('user'); 

@@ -33,6 +33,8 @@ export class VilleComponent implements OnInit {
     
   }
 
+ 
+
   constructor(private dataservice:DataService, private activateRoute: ActivatedRoute){}
  
   ngOnInit(): void {

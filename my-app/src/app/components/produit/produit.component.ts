@@ -23,8 +23,11 @@ export class ProduitComponent implements OnInit {
   problemes: any=[]
   hideAdd:boolean=true
   addButton:boolean=true
+  problemeCopy: any=[]
+
   add(){
     this.addButton=true
+    this.problemes=[]
     this.produitSelected = {
       name:'',problemes:[]
     }
@@ -32,6 +35,32 @@ export class ProduitComponent implements OnInit {
    
     this.hideAdd=!this.hideAdd
     
+  }
+
+  fProbleme(e:any){
+    //console.log(e.target.value);
+    
+    this.probleme=this.problemeCopy
+
+    //console.log("fV",this.vehicule);
+    this.probleme=this.probleme.filter((v:any) => v.name.toLowerCase().indexOf(e.target.value) > -1)
+       
+  }
+
+
+  existe:boolean=false
+  chercher(event:any){
+    this.existe=false
+    let dataCherche=this.dataSource
+    dataCherche.filter = event.value
+    if (dataCherche.filteredData.length != 0 ) {
+      if (event.value=='') {
+        this.existe=false
+      }else{
+        this.existe=true
+      }
+      
+    }
   }
 
   constructor(private dataservice:DataService, private activateRoute: ActivatedRoute){}
@@ -59,7 +88,7 @@ export class ProduitComponent implements OnInit {
     
     this.dataservice.getProbleme().subscribe(
       (data:any) => {
-        this.probleme = data
+        this.problemeCopy=this.probleme = data
         //console.log(data);
         
       }
@@ -74,7 +103,7 @@ export class ProduitComponent implements OnInit {
   }
 
   addProduit = new FormGroup({
-    produit: new FormControl('',[Validators.required, Validators.pattern("[a-z A-Z 0-9]*")]),
+    produit: new FormControl('',Validators.required),
     Probleme:new FormControl('',Validators.required)
   })
 

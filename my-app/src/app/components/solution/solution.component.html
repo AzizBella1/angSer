@@ -13,14 +13,14 @@
                     
                     <div class="form-group py-2">
                         <label for="sollution">Solution</label>
-                        <input [(ngModel)]="Solution.name" formControlName="solution" type="text" name="solution" class="form-control">
+                        <input [(ngModel)]="Solution.name" (keyup)="chercher($event.target)" formControlName="solution" type="text" name="solution" class="form-control">
                         <small *ngIf="solution.invalid" id="fileHelpId" style="color: red;" class="form-text"> ** </small>
-                        
+                        <small *ngIf="existe" id="fileHelpId" style="color: red;" class="form-text"> * existe deja  </small>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
-                                <button *ngIf="addButton" class="btn btn-success btn-block" (click)="addNew()" [disabled]="solution.invalid" type="submit">Ajouter</button>
+                                <button *ngIf="addButton" class="btn btn-success btn-block" (click)="addNew()" [disabled]="solution.invalid || existe" type="submit">Ajouter</button>
                                 <button *ngIf="!addButton" class="btn btn-warning btn-block" (click)="modSolution(Solution)" [disabled]="solution.invalid" type="submit">Modifier</button>
                             </div>
                             <div class="col">

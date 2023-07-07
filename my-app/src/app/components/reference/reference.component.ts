@@ -33,6 +33,21 @@ export class ReferenceComponent implements OnInit {
     
   }
 
+  existe:boolean=false
+  chercher(event:any){
+    this.existe=false
+    let dataCherche=this.dataSource
+    dataCherche.filter = event.value
+    if (dataCherche.filteredData.length != 0 ) {
+      if (event.value=='') {
+        this.existe=false
+      }else{
+        this.existe=true
+      }
+      
+    }
+  }
+  
   constructor(private dataservice:DataService, private activateRoute: ActivatedRoute){}
  
   ngOnInit(): void {

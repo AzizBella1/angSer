@@ -12,19 +12,22 @@
         <div class="col-md-6 ml-md-auto">
             <mat-form-field>
                 <mat-select placeholder="Probleme"  [(ngModel)]="problemes" formControlName="Probleme" multiple>
+                    <mat-option>
+                        <ngx-mat-select-search noEntriesFoundLabel="'Aucun Probleme'" placeholderLabel="Cherche" (keyup)="fProbleme($event)"></ngx-mat-select-search>
+                    </mat-option>
                   <mat-option *ngFor="let item of probleme" [value]="item.id" >{{item.name}}</mat-option>
                 </mat-select>
-              </mat-form-field>h
+              </mat-form-field>
             <div class="form-group md-5 py-2">
                 <label for="produit">Produit</label>
-                <input [(ngModel)]="produitSelected.name" formControlName="produit" type="text" name="produit" class="form-control" >
+                <input [(ngModel)]="produitSelected.name" (keyup)="chercher($event.target)" formControlName="produit" type="text" name="produit" class="form-control" >
                 <small *ngIf="produit.invalid" id="fileHelpId" style="color: red;" class="form-text"> ** </small>
-                
+                <small *ngIf="existe" id="fileHelpId" style="color: red;" class="form-text"> * existe deja  </small>
             </div>
             <div class="form-group">
                 <div class="row">
                     <div class="col">
-                        <button *ngIf="addButton" class="btn btn-success btn-block" (click)="addNew()" [disabled]="addProduit.invalid" type="submit">Ajouter</button>
+                        <button *ngIf="addButton" class="btn btn-success btn-block" (click)="addNew()" [disabled]="addProduit.invalid || existe" type="submit">Ajouter</button>
                         <button *ngIf="!addButton" class="btn btn-warning btn-block" (click)="modProduit(produitSelected)" [disabled]="addProduit.invalid" type="submit">Modifier</button>
                     </div>
                     <div class="col">

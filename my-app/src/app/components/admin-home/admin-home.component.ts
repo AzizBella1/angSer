@@ -277,6 +277,7 @@ export class AdminHomeComponent {
 
   filter(event:any){
     this.dataSource.filter = event.value
+    
   }
 
   

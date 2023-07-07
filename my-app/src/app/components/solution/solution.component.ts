@@ -89,6 +89,21 @@ export class SolutionComponent implements OnInit {
 
   filter(event:any){
     this.dataSource.filter = event.value
+    
+  }
+  existe:boolean=false
+  chercher(event:any){
+    this.existe=false
+    let dataCherche=this.dataSource
+    dataCherche.filter = event.value
+    if (dataCherche.filteredData.length != 0 ) {
+      if (event.value=='') {
+        this.existe=false
+      }else{
+        this.existe=true
+      }
+      
+    }
   }
 
   addNew(){

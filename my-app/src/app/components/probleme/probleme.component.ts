@@ -34,6 +34,22 @@ export class ProblemeComponent implements OnInit {
     
   }
 
+
+  existe:boolean=false
+  chercher(event:any){
+    this.existe=false
+    let dataCherche=this.dataSource
+    dataCherche.filter = event.value
+    if (dataCherche.filteredData.length != 0 ) {
+      if (event.value=='') {
+        this.existe=false
+      }else{
+        this.existe=true
+      }
+      
+    }
+  }
+
   solutions:any=[]
 
   test(x:any){
@@ -54,15 +70,29 @@ export class ProblemeComponent implements OnInit {
 
   
   showAll() {
+
+    
     
     this.dataservice.getSolution().subscribe(
       (data:any) => {
-        this.solution = data
+        this.solutionCopy=this.solution = data
         //console.log(data);
         
       }
     )
 
+  }
+
+  solutionCopy:any=[]
+
+  fSolution(e:any){
+    //console.log(e.target.value);
+    
+    this.solution=this.solutionCopy
+
+    //console.log("fV",this.vehicule);
+    this.solution=this.solution.filter((v:any) => v.name.toLowerCase().indexOf(e.target.value) > -1)
+       
   }
 
   addProbleme = new FormGroup({
